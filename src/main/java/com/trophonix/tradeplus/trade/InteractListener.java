@@ -32,9 +32,6 @@ public class InteractListener implements Listener {
       if (last != null && System.currentTimeMillis() < last + 5000L) return;
       Player player = event.getPlayer();
       Player interacted = (Player) event.getRightClicked();
-      if (PlayerUtil.isVanished(interacted)) {
-        return;
-      }
       String action = pl.getTradeConfig().getAction();
       if ((action.contains("sneak") || action.contains("crouch") || action.contains("shift"))
           && !player.isSneaking()) return;
@@ -53,9 +50,6 @@ public class InteractListener implements Listener {
       if (last != null && System.currentTimeMillis() < last + 5000L) return;
       Player player = (Player) event.getDamager();
       Player interacted = (Player) event.getEntity();
-      if (PlayerUtil.isVanished(interacted)) {
-        return;
-      }
       String action = pl.getTradeConfig().getAction();
       if ((action.contains("sneak") || action.contains("crouch") || action.contains("shift"))
           && !player.isSneaking()) return;

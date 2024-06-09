@@ -2,12 +2,10 @@ package com.trophonix.tradeplus;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
-import com.trophonix.tradeplus.commands.CommandHandler;
 import com.trophonix.tradeplus.commands.TradeCommand;
 import com.trophonix.tradeplus.commands.TradePlusCommand;
 import com.trophonix.tradeplus.config.TradePlusConfig;
 import com.trophonix.tradeplus.events.ExcessChestListener;
-import com.trophonix.tradeplus.hooks.WorldGuardHook;
 import com.trophonix.tradeplus.logging.Logs;
 import com.trophonix.tradeplus.trade.InteractListener;
 import com.trophonix.tradeplus.trade.Trade;
@@ -40,6 +38,7 @@ public class TradePlus extends JavaPlugin implements Listener {
 
   @Getter private List<Inventory> excessChests;
 
+  @Getter
   private Logs logs;
 
   public Trade getTrade(Player player) {
@@ -59,11 +58,6 @@ public class TradePlus extends JavaPlugin implements Listener {
 
   @Override
   public void onLoad() {
-    try {
-      WorldGuardHook.init();
-    } catch (Throwable ignored) {
-      getLogger().info("Failed to hook into worldguard. Ignore this if you don't have worldguard.");
-    }
   }
 
   @Override
@@ -145,7 +139,4 @@ public class TradePlus extends JavaPlugin implements Listener {
     }
   }
 
-  public Logs getLogs() {
-    return logs;
-  }
 }

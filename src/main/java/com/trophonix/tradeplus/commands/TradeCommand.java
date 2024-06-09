@@ -3,8 +3,6 @@ package com.trophonix.tradeplus.commands;
 import com.trophonix.tradeplus.TradePlus;
 import com.trophonix.tradeplus.events.TradeAcceptEvent;
 import com.trophonix.tradeplus.events.TradeRequestEvent;
-import com.trophonix.tradeplus.hooks.FactionsHook;
-import com.trophonix.tradeplus.hooks.WorldGuardHook;
 import com.trophonix.tradeplus.trade.Trade;
 import com.trophonix.tradeplus.trade.TradeRequest;
 import com.trophonix.tradeplus.util.MsgUtils;
@@ -19,7 +17,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.net.InetSocketAddress;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,34 +66,11 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
       return true;
     }
 
-    try {
-      if (pl.getTradeConfig().isWorldguardTradingFlag()) {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-          if (!WorldGuardHook.isTradingAllowed(player, player.getLocation())) {
-            pl.getTradeConfig().getWorldguardTradingNotAllowed().send(player);
-            return true;
-          }
-        }
-      }
-    } catch (Throwable ignored) {
-
-    }
-
-    try {
-      if (!pl.getTradeConfig().isFactionsAllowTradeInEnemyTerritory()) {
-        if (FactionsHook.isPlayerInEnemyTerritory(player)) {
-          pl.getTradeConfig().getFactionsEnemyTerritory().send(player);
-          return true;
-        }
-      }
-    } catch (Throwable ignored) {
-    }
-
     boolean permissionRequired = pl.getConfig().getBoolean("permissions.required", false);
 
     if (args.length == 1) {
       final Player receiver = Bukkit.getPlayer(args[0]);
-      if (receiver == null || PlayerUtil.isVanished(receiver)) {
+      if (receiver == null) {
         if (args[0].equalsIgnoreCase("deny")) {
           requests.forEach(
               req -> {
@@ -243,7 +217,6 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
     args0.add("deny");
     args0.addAll(
         Bukkit.getOnlinePlayers().stream()
-            .filter(p -> !PlayerUtil.isVanished(p))
             .map(Player::getName)
             .collect(Collectors.toList()));
     if (args.length == 0) {

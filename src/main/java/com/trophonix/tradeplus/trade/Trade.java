@@ -88,49 +88,6 @@ public class Trade implements Listener {
                                     player2.getName());
                           }
                         });
-              if (pl.getConfig().getBoolean("extras.economy.enabled", true)
-                  && pl.getServer().getPluginManager().isPluginEnabled("Vault")) {
-                try {
-                  if (pl.getServer()
-                          .getServicesManager()
-                          .getRegistration(Class.forName("net.milkbowl.vault.economy.Economy"))
-                      != null) {
-                    extras.add(new EconomyExtra(player1, player2, pl, this));
-                  }
-                } catch (Exception ignored) {
-                }
-              }
-              if (pl.getConfig().getBoolean("extras.experience.enabled", true)) {
-                extras.add(new ExperienceExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.playerpoints.enabled", true)
-                  && pl.getServer().getPluginManager().isPluginEnabled("PlayerPoints")) {
-                extras.add(new PlayerPointsExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.griefprevention.enabled", true)
-                  && pl.getServer().getPluginManager().isPluginEnabled("GriefPrevention")) {
-                extras.add(new GriefPreventionExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.enjinpoints.enabled", false)
-                  && pl.getServer().getPluginManager().isPluginEnabled("EnjinMinecraftPlugin")) {
-                extras.add(new EnjinPointsExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.tokenenchant.enabled", true)
-                  && pl.getServer().getPluginManager().isPluginEnabled("TokenEnchant")) {
-                extras.add(new TokenEnchantExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.tokenmanager.enabled", true)
-                  && pl.getServer().getPluginManager().isPluginEnabled("TokenManager")) {
-                extras.add(new TokenManagerExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.beasttoken.enabled", true)
-                      && pl.getServer().getPluginManager().isPluginEnabled("BeastToken")) {
-                extras.add(new BeastTokensExtra(player1, player2, pl, this));
-              }
-              if (pl.getConfig().getBoolean("extras.votingplugin.enabled", false)
-                  && pl.getServer().getPluginManager().isPluginEnabled("VotingPlugin")) {
-                extras.add(new VotingPluginExtra(player1, player2, pl, this));
-              }
             })
         .sync(
             () -> {

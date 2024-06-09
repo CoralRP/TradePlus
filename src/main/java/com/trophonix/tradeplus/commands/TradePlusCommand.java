@@ -126,7 +126,6 @@ public class TradePlusCommand implements CommandExecutor, TabCompleter {
         && !full.endsWith(" ")
         && (args[0].equalsIgnoreCase("force") || args[0].equalsIgnoreCase("spectate"))) {
       return Bukkit.getOnlinePlayers().stream()
-          .filter(p -> !PlayerUtil.isVanished(p))
           .map(Player::getName)
           .filter(
               name ->

@@ -12,6 +12,8 @@ import com.trophonix.tradeplus.trade.Trade;
 import com.trophonix.tradeplus.util.InvUtils;
 import com.trophonix.tradeplus.util.PlayerUtil;
 import com.trophonix.tradeplus.util.Sounds;
+import it.coralrp.laroc.api.Laroc;
+import it.coralrp.laroc.nametags.api.NametagsModule;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,6 +32,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class TradePlus extends JavaPlugin implements Listener {
 
   public ConcurrentLinkedQueue<Trade> ongoingTrades = new ConcurrentLinkedQueue<>();
+
+  @Getter private Laroc laroc;
+
+  @Getter private NametagsModule nametagsModule;
+
   @Getter private TaskChainFactory taskFactory;
 
   @Getter private TradePlusConfig tradeConfig;
@@ -48,7 +55,7 @@ public class TradePlus extends JavaPlugin implements Listener {
     return null;
   }
 
-  public Trade getTrade(Player player1, Player player2) {
+    public Trade getTrade(Player player1, Player player2) {
     for (Trade trade : ongoingTrades) {
       if (trade.player1.equals(player1) && trade.player2.equals(player2)) return trade;
       if (trade.player2.equals(player1) && trade.player1.equals(player2)) return trade;
@@ -62,6 +69,8 @@ public class TradePlus extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
+    this.laroc = Laroc.PLUGIN.getLaroc();
+    this.nametagsModule = laroc.getModuleManager().getModule(NametagsModule.class);
     tradeConfig = new TradePlusConfig(this);
     taskFactory = BukkitTaskChainFactory.create(this);
     taskFactory

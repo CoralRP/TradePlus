@@ -71,7 +71,7 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
     if (args.length == 1) {
       final Player receiver = Bukkit.getPlayer(args[0]);
       if (receiver == null) {
-        if (args[0].equalsIgnoreCase("deny")) {
+        if (args[0].equalsIgnoreCase("rifiuta")) {
           requests.forEach(
               req -> {
                 if (req.receiver == player) {
@@ -158,8 +158,8 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
         TradeAcceptEvent tradeAcceptEvent = new TradeAcceptEvent(receiver, player);
         Bukkit.getPluginManager().callEvent(tradeAcceptEvent);
         if (tradeAcceptEvent.isCancelled()) return true;
-        pl.getTradeConfig().getAcceptSender().send(receiver, "%PLAYER%", player.getName());
-        pl.getTradeConfig().getAcceptReceiver().send(player, "%PLAYER%", receiver.getName());
+        pl.getTradeConfig().getAcceptSender().send(receiver, "%PLAYER%", pl.getNametagsModule().getNametagsManager().isAnonymous(player) ? "Anonimo" : player.getName());
+        pl.getTradeConfig().getAcceptReceiver().send(player, "%PLAYER%", pl.getNametagsModule().getNametagsManager().isAnonymous(player) ? "Anonimo" : receiver.getName());
         new Trade(receiver, player);
         requests.removeIf(req -> req.contains(player) && req.contains(receiver));
       } else {
@@ -193,7 +193,7 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
         pl.getTradeConfig()
             .getRequestReceived()
             .setOnClick("/trade " + player.getName())
-            .send(receiver, "%PLAYER%", player.getName());
+            .send(receiver, "%PLAYER%", pl.getNametagsModule().getNametagsManager().isAnonymous(player) ? "Anonimo" : player.getName());
         Bukkit.getScheduler()
             .runTaskLater(
                 pl,
@@ -214,7 +214,7 @@ public class TradeCommand implements TabCompleter, CommandExecutor {
   @Override
   public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
     List<String> args0 = new ArrayList<>();
-    args0.add("deny");
+    args0.add("rifiuta");
     args0.addAll(
         Bukkit.getOnlinePlayers().stream()
             .map(Player::getName)

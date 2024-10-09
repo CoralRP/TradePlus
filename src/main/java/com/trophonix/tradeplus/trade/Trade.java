@@ -2,6 +2,7 @@ package com.trophonix.tradeplus.trade;
 
 import com.trophonix.tradeplus.TradePlus;
 import com.trophonix.tradeplus.events.TradeCompleteEvent;
+import com.trophonix.tradeplus.events.TradeEndEvent;
 import com.trophonix.tradeplus.extras.*;
 import com.trophonix.tradeplus.logging.TradeLog;
 import com.trophonix.tradeplus.util.InvUtils;
@@ -460,6 +461,10 @@ public class Trade implements Listener {
 
       pl.getTradeConfig().getCancelledMessage().send(player1, "%PLAYER%", player2.getName());
       pl.getTradeConfig().getCancelledMessage().send(player2, "%PLAYER%", player1.getName());
+
+      TradeEndEvent eventEvent = new TradeEndEvent(player1, player2);
+      Bukkit.getPluginManager().callEvent(eventEvent);
+
     } else if (closed.equals(spectatorInv)
         || spectatorInv.getViewers().contains(event.getPlayer())) {
       Bukkit.getScheduler()
@@ -856,6 +861,10 @@ public class Trade implements Listener {
                           pl.getTradeConfig()
                               .getTradeComplete()
                               .send(player2, "%PLAYER%", player1.getName());
+
+                          TradeEndEvent eventEvent =
+                                  new TradeEndEvent(player1, player2);
+                          Bukkit.getPluginManager().callEvent(eventEvent);
 
                           if (pl.getLogs() != null) {
                             try {

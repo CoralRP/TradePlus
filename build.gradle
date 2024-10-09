@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
     id "com.github.johnrengelman.shadow" version "8.1.1"
     id 'org.ajoberstar.git-publish' version '4.2.2'
@@ -11,7 +11,9 @@ description = 'TradePlus'
 
 repositories {
     mavenLocal()
-    maven { url = uri('https://hub.spigotmc.org/nexus/content/repositories/snapshots/') }
+    mavenCentral()
+
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
     maven { url = uri('https://oss.sonatype.org/content/repositories/snapshots') }
     maven { url = uri('https://nexus.hc.to/content/repositories/pub_releases') }
     maven { url = uri('https://repo.dakanilabs.com/repository/maven-public/') }
@@ -37,11 +39,14 @@ repositories {
 dependencies {
     compileOnly 'it.coralrp.laroc:api:1.0.10-SNAPSHOT'
     compileOnly 'it.coralrp.laroc.nametags:api:1.0.0-SNAPSHOT'
+    compileOnly 'it.coralrp.laroc.chat:api:1.0.1-SNAPSHOT'
+
     implementation 'com.google.guava:guava:21.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'net.wesjd:anvilgui:1.9.0-SNAPSHOT'
     implementation 'co.aikar:taskchain-bukkit:3.7.2'
-    compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
+
+    compileOnly 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }

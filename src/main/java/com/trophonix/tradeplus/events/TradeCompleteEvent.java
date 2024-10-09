@@ -7,6 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * Called when a trade completes (only called when logs enabled).
+ */
 @AllArgsConstructor
 @Getter
 public class TradeCompleteEvent extends Event {

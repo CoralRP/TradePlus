@@ -6,6 +6,7 @@ import com.trophonix.tradeplus.commands.TradeCommand;
 import com.trophonix.tradeplus.commands.TradePlusCommand;
 import com.trophonix.tradeplus.config.TradePlusConfig;
 import com.trophonix.tradeplus.events.ExcessChestListener;
+import com.trophonix.tradeplus.listener.ActionListener;
 import com.trophonix.tradeplus.logging.Logs;
 import com.trophonix.tradeplus.trade.InteractListener;
 import com.trophonix.tradeplus.trade.Trade;
@@ -13,6 +14,7 @@ import com.trophonix.tradeplus.util.InvUtils;
 import com.trophonix.tradeplus.util.PlayerUtil;
 import com.trophonix.tradeplus.util.Sounds;
 import it.coralrp.laroc.api.Laroc;
+import it.coralrp.laroc.chat.api.ChatModule;
 import it.coralrp.laroc.nametags.api.NametagsModule;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -36,6 +38,7 @@ public class TradePlus extends JavaPlugin implements Listener {
   @Getter private Laroc laroc;
 
   @Getter private NametagsModule nametagsModule;
+  @Getter private ChatModule chatModule;
 
   @Getter private TaskChainFactory taskFactory;
 
@@ -71,6 +74,7 @@ public class TradePlus extends JavaPlugin implements Listener {
   public void onEnable() {
     this.laroc = Laroc.PLUGIN.getLaroc();
     this.nametagsModule = laroc.getModuleManager().getModule(NametagsModule.class);
+    this.chatModule = laroc.getModuleManager().getModule(ChatModule.class);
     tradeConfig = new TradePlusConfig(this);
     taskFactory = BukkitTaskChainFactory.create(this);
     taskFactory
@@ -86,6 +90,8 @@ public class TradePlus extends JavaPlugin implements Listener {
               if (Sounds.version > 17) {
                 getServer().getPluginManager().registerEvents(new InteractListener(this), this);
               }
+
+              getServer().getPluginManager().registerEvents(new ActionListener(this), this);
               new ExcessChestListener(this);
             })
         .execute();

@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     sh 'chmod +x ./gradlew'
-                    sh "./gradlew shadowJar -PmavenUser=$MAVEN_USER_USR -PmavenPassword=$MAVEN_USER_PSW"
+                    sh "./gradlew shadowJar --refresh-dependencies -PmavenUser=$MAVEN_USER_USR -PmavenPassword=$MAVEN_USER_PSW"
                 }
             }
             post {

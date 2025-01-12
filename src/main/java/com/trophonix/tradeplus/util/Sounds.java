@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class Sounds {
 
-  public static final int version = Integer.parseInt(Bukkit.getBukkitVersion().split("\\.")[1]);
+  public static final int version = 121;
   private static Sound pling;
   private static Sound click;
   private static Sound levelUp;

@@ -11,10 +11,8 @@ import com.trophonix.tradeplus.util.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.command.*;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
-public class TradeCommand implements TabCompleter, CommandExecutor {
+public class TradeCommand implements TabExecutor {
 
     private static final DecimalFormat format = new DecimalFormat("0.##");
 

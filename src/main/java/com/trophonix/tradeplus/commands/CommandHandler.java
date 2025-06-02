@@ -101,4 +101,5 @@ public class CommandHandler implements Listener, CommandExecutor {
     protected abstract List<String> getCompletions(
         CommandSender sender, String command, String[] args, String buffer);
   }
+
 }

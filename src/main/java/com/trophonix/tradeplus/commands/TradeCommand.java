@@ -231,6 +231,6 @@ public class TradeCommand implements TabExecutor {
                                     && name.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         }
-        return null;
+        return new ArrayList<>();
     }
 }
